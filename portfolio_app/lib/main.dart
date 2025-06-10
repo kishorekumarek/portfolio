@@ -12,69 +12,109 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Kishore Kumar - Portfolio', // Updated title
+      title: 'Kishore Kumar - Flutter Portfolio',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-        scaffoldBackgroundColor: Colors.grey[100],
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.blueGrey[800],
-          elevation: 0, // Remove shadow for a flatter look
-          titleTextStyle: GoogleFonts.robotoSlab( // AppBar title font
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          iconTheme: const IconThemeData(color: Colors.white), // Ensure icons are white
+        primarySwatch: Colors.deepPurple,
+        scaffoldBackgroundColor: const Color(0xFF0A0A0B),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
-        cardTheme: CardTheme( // Define CardTheme for consistency
-          elevation: 2.0,
-          margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        cardTheme: CardTheme(
+          elevation: 0,
+          color: Colors.white.withOpacity(0.1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(color: Colors.white.withOpacity(0.2), width: 1),
+          ),
         ),
         textTheme: TextTheme(
-          headlineSmall: GoogleFonts.robotoSlab( // For section headings like PROFILE, EDUCATION
-            fontSize: 24, // Base size, will be adjusted by widgets
+          displayLarge: GoogleFonts.inter(
+            fontSize: 56,
             fontWeight: FontWeight.bold,
-            color: Colors.blueGrey[700],
-          ),
-          titleMedium: GoogleFonts.robotoSlab( // For job titles
-            fontSize: 18, // Base size
-            fontWeight: FontWeight.w600, // Slightly less bold than headings
-            color: Colors.blueGrey[900],
-          ),
-          titleSmall: GoogleFonts.roboto( // For job company/duration
-            fontSize: 16, // Base size
-            fontStyle: FontStyle.italic,
-            color: Colors.grey[700],
-          ),
-          bodyMedium: GoogleFonts.roboto( // For body text
-            fontSize: 16, // Base size
-            color: Colors.grey[800],
-            height: 1.5, // Line height for readability
-          ),
-          labelLarge: GoogleFonts.roboto( // For Chip labels
-            fontSize: 14,
             color: Colors.white,
-          )
+            height: 1.1,
+          ),
+          displayMedium: GoogleFonts.inter(
+            fontSize: 36,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            height: 1.2,
+          ),
+          headlineLarge: GoogleFonts.inter(
+            fontSize: 32,
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
+          ),
+          headlineMedium: GoogleFonts.inter(
+            fontSize: 28,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+          headlineSmall: GoogleFonts.inter(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+          titleLarge: GoogleFonts.inter(
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+          titleMedium: GoogleFonts.inter(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          ),
+          titleSmall: GoogleFonts.inter(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: Colors.white70,
+          ),
+          bodyLarge: GoogleFonts.inter(
+            fontSize: 18,
+            color: Colors.white70,
+            height: 1.6,
+          ),
+          bodyMedium: GoogleFonts.inter(
+            fontSize: 16,
+            color: Colors.white70,
+            height: 1.6,
+          ),
+          bodySmall: GoogleFonts.inter(
+            fontSize: 14,
+            color: Colors.white60,
+            height: 1.5,
+          ),
+          labelLarge: GoogleFonts.inter(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          ),
         ),
-        chipTheme: ChipThemeData( // Define ChipTheme for skills
-          backgroundColor: Colors.blueGrey[700],
-          labelStyle: GoogleFonts.roboto(color: Colors.white, fontSize: 14),
-          side: BorderSide.none,
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+        colorScheme: const ColorScheme.dark(
+          primary: Color(0xFF6366F1),
+          secondary: Color(0xFF8B5CF6),
+          tertiary: Color(0xFF06B6D4),
+          surface: Color(0xFF0A0A0B),
         ),
-        dividerTheme: DividerThemeData( // Define DividerTheme
-          color: Colors.blueGrey[200],
-          space: 24, // Space above and below the divider
-          thickness: 1,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF6366F1),
+            foregroundColor: Colors.white,
+            elevation: 0,
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            textStyle: GoogleFonts.inter(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
-        // Define a color for text accents if needed, e.g. for specific highlights
-        // accentColor: Colors.amber, // ThemeData.accentColor is deprecated, use colorScheme.secondary
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.blueGrey,
-          accentColor: Colors.amberAccent, // Used for secondary highlights if any
-          brightness: Brightness.light,
-        ).copyWith(secondary: Colors.amberAccent), // Explicitly set secondary for ColorScheme
       ),
       home: const PortfolioScreen(),
     );
