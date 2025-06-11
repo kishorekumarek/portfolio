@@ -90,7 +90,7 @@ class SkillsSection extends StatelessWidget {
   List<Skill> _getArchitectureSkills() {
     return [
       Skill('Mobile Architecture', 0.95, const Color(0xFF6366F1)),
-      Skill('MVVM', 0.90, const Color(0xFF8B5CF6)),
+      Skill('SOLID Principles', 0.92, const Color(0xFF8B5CF6)),
       Skill('Clean Architecture', 0.92, const Color(0xFF06B6D4)),
       Skill('Design Patterns', 0.88, const Color(0xFF10B981)),
       Skill('State Management', 0.90, const Color(0xFFF59E0B)),

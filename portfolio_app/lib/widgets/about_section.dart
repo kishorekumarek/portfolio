@@ -151,7 +151,7 @@ class AboutSection extends StatelessWidget {
         children: [
           _buildStatItem('12+', 'Years Experience'),
           const SizedBox(height: 24),
-          _buildStatItem('50+', 'Projects Delivered'),
+          _buildStatItem('20+', 'Projects Delivered'),
           const SizedBox(height: 24),
           _buildStatItem('6', 'Companies'),
           const SizedBox(height: 24),
