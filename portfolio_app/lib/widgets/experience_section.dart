@@ -162,29 +162,34 @@ class _ExperienceCardState extends State<ExperienceCard>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Timeline
-                Column(
-                  children: [
-                    Container(
-                      width: 16,
-                      height: 16,
-                      decoration: BoxDecoration(
-                        color: _isHovered 
-                          ? const Color(0xFF6366F1)
-                          : Colors.white.withOpacity(0.3),
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: const Color(0xFF6366F1),
-                          width: 2,
+                SizedBox(
+                  width: 16,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 16,
+                        height: 16,
+                        decoration: BoxDecoration(
+                          color: _isHovered 
+                            ? const Color(0xFF6366F1)
+                            : Colors.white.withOpacity(0.3),
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: const Color(0xFF6366F1),
+                            width: 2,
+                          ),
                         ),
                       ),
-                    ),
-                    if (!widget.isLast)
-                      Container(
-                        width: 2,
-                        height: 140,
-                        color: Colors.white.withOpacity(0.2),
-                      ),
-                  ],
+                      if (!widget.isLast)
+                        Container(
+                          width: 2,
+                          height: 220, // Further increased to ensure complete connection
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
                 const SizedBox(width: 24),
                 
