@@ -47,7 +47,7 @@ class ContactSection extends StatelessWidget {
                   'Email', 
                   'kishorekumarek@pm.me', 
                   Icons.email,
-                  () => _launchEmail(),
+                  null,
                   isEmail: true,
                 )),
                 const SizedBox(width: 24),
@@ -66,7 +66,7 @@ class ContactSection extends StatelessWidget {
               'Email', 
               'kishorekumarek@pm.me', 
               Icons.email,
-              () => _launchEmail(),
+              null,
               isEmail: true,
             ),
             const SizedBox(height: 16),
@@ -114,7 +114,7 @@ class ContactSection extends StatelessWidget {
     );
   }
 
-  Widget _buildContactCard(BuildContext context, String title, String value, IconData icon, VoidCallback onTap, {bool isEmail = false}) {
+  Widget _buildContactCard(BuildContext context, String title, String value, IconData icon, VoidCallback? onTap, {bool isEmail = false}) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
@@ -168,7 +168,7 @@ class ContactSection extends StatelessWidget {
                     onTap: () => _copyToClipboard(context, value),
                     child: Icon(
                       Icons.copy,
-                      size: 16,
+                      size: 20,
                       color: Colors.white60,
                     ),
                   ),
