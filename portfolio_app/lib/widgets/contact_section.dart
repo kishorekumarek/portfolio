@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactSection extends StatelessWidget {
   const ContactSection({super.key});
@@ -40,34 +42,42 @@ class ContactSection extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(child: _buildContactCard('Email', 'kishorekumarek@pm.me', Icons.email)),
+                Expanded(child: _buildContactCard(
+                  context,
+                  'Email', 
+                  'kishorekumarek@pm.me', 
+                  Icons.email,
+                  () => _launchEmail(),
+                  isEmail: true,
+                )),
                 const SizedBox(width: 24),
-                Expanded(child: _buildContactCard('Phone', '0547868607', Icons.phone)),
-                const SizedBox(width: 24),
-                Expanded(child: _buildContactCard('LinkedIn', '/in/kishore-kumar', Icons.person)),
+                Expanded(child: _buildContactCard(
+                  context,
+                  'LinkedIn', 
+                  'kishorekumarek', 
+                  Icons.person,
+                  () => _launchLinkedIn(),
+                )),
               ],
             ),
           ] else ...[
-            _buildContactCard('Email', 'kishorekumarek@pm.me', Icons.email),
-            const SizedBox(height: 16),
-            _buildContactCard('Phone', '0547868607', Icons.phone),
-            const SizedBox(height: 16),
-            _buildContactCard('LinkedIn', '/in/kishore-kumar', Icons.person),
-          ],
-          
-          const SizedBox(height: 40),
-          
-          ElevatedButton.icon(
-            onPressed: () {
-              // TODO: Implement email functionality
-            },
-            icon: const Icon(Icons.send),
-            label: const Text('Send Message'),
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-              textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            _buildContactCard(
+              context,
+              'Email', 
+              'kishorekumarek@pm.me', 
+              Icons.email,
+              () => _launchEmail(),
+              isEmail: true,
             ),
-          ),
+            const SizedBox(height: 16),
+            _buildContactCard(
+              context,
+              'LinkedIn', 
+              'kishorekumarek', 
+              Icons.person,
+              () => _launchLinkedIn(),
+            ),
+          ],
           
           const SizedBox(height: 60),
           
@@ -104,48 +114,103 @@ class ContactSection extends StatelessWidget {
     );
   }
 
-  Widget _buildContactCard(String title, String value, IconData icon) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.1)),
-      ),
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: const Color(0xFF6366F1).withOpacity(0.2),
-              borderRadius: BorderRadius.circular(12),
+  Widget _buildContactCard(BuildContext context, String title, String value, IconData icon, VoidCallback onTap, {bool isEmail = false}) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.05),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.white.withOpacity(0.1)),
+        ),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF6366F1).withOpacity(0.2),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                icon,
+                color: const Color(0xFF6366F1),
+                size: 24,
+              ),
             ),
-            child: Icon(
-              icon,
-              color: const Color(0xFF6366F1),
-              size: 24,
+            const SizedBox(height: 16),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
             ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.white70,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                if (isEmail) ...[
+                  const SizedBox(width: 8),
+                  InkWell(
+                    onTap: () => _copyToClipboard(context, value),
+                    child: Icon(
+                      Icons.copy,
+                      size: 16,
+                      color: Colors.white60,
+                    ),
+                  ),
+                ],
+              ],
             ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.white70,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
+          ],
+        ),
       ),
     );
+  }
+
+  Future<void> _copyToClipboard(BuildContext context, String text) async {
+    await Clipboard.setData(ClipboardData(text: text));
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Email copied to clipboard!'),
+          duration: Duration(seconds: 2),
+          backgroundColor: Color(0xFF6366F1),
+        ),
+      );
+    }
+  }
+
+  Future<void> _launchEmail() async {
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'kishorekumarek@pm.me',
+      query: 'subject=Flutter Project Inquiry&body=Hi Kishore,\n\nI would like to discuss a Flutter project opportunity with you.\n\nBest regards,',
+    );
+    
+    if (!await launchUrl(emailLaunchUri)) {
+      throw Exception('Could not launch email');
+    }
+  }
+
+  Future<void> _launchLinkedIn() async {
+    final Uri linkedInLaunchUri = Uri.parse('https://www.linkedin.com/in/kishorekumarek');
+    
+    if (!await launchUrl(linkedInLaunchUri, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch LinkedIn');
+    }
   }
 } 

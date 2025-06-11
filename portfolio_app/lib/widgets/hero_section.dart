@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HeroSection extends StatefulWidget {
-  const HeroSection({super.key});
+  final VoidCallback? onViewWorkPressed;
+  final VoidCallback? onContactPressed;
+  
+  const HeroSection({
+    super.key, 
+    this.onViewWorkPressed,
+    this.onContactPressed,
+  });
 
   @override
   State<HeroSection> createState() => _HeroSectionState();
@@ -117,16 +124,12 @@ class _HeroSectionState extends State<HeroSection>
                 runSpacing: 16,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: () {
-                      // Scroll to projects
-                    },
+                    onPressed: widget.onViewWorkPressed,
                     icon: const Icon(Icons.rocket_launch),
                     label: const Text('View My Work'),
                   ),
                   OutlinedButton.icon(
-                    onPressed: () {
-                      // Scroll to contact
-                    },
+                    onPressed: widget.onContactPressed,
                     icon: const Icon(Icons.email),
                     label: const Text('Get In Touch'),
                     style: OutlinedButton.styleFrom(

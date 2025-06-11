@@ -51,7 +51,11 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                 SliverToBoxAdapter(
                   child: Column(
                     children: [
-                      HeroSection(key: _heroKey),
+                      HeroSection(
+                        key: _heroKey,
+                        onViewWorkPressed: () => _scrollToSection(_projectsKey),
+                        onContactPressed: () => _scrollToSection(_contactKey),
+                      ),
                       AboutSection(key: _aboutKey),
                       ProjectsSection(key: _projectsKey),
                       SkillsSection(key: _skillsKey),
@@ -142,6 +146,17 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
         ),
       ],
     );
+  }
+
+  void _scrollToSection(GlobalKey key) {
+    final context = key.currentContext;
+    if (context != null) {
+      Scrollable.ensureVisible(
+        context,
+        duration: const Duration(milliseconds: 800),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   @override

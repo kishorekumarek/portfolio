@@ -59,6 +59,12 @@ class ExperienceSection extends StatelessWidget {
   List<Job> _getJobs() {
     return [
       Job(
+        title: 'Freelance Mobile Developer',
+        company: 'Independent',
+        duration: '2017 - Present',
+        description: 'Providing freelance mobile app development services specializing in iOS and Flutter. Delivered 20+ custom mobile applications for startups and enterprises across various industries including FinTech, Healthcare, and E-commerce.',
+      ),
+      Job(
         title: 'Senior Mobile Engineer',
         company: 'Talabat',
         duration: '2022 - Present',
@@ -175,7 +181,7 @@ class _ExperienceCardState extends State<ExperienceCard>
                     if (!widget.isLast)
                       Container(
                         width: 2,
-                        height: 100,
+                        height: 140,
                         color: Colors.white.withOpacity(0.2),
                       ),
                   ],
@@ -185,7 +191,7 @@ class _ExperienceCardState extends State<ExperienceCard>
                 // Content
                 Expanded(
                   child: Container(
-                    margin: const EdgeInsets.only(bottom: 32),
+                    margin: const EdgeInsets.only(bottom: 40),
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(_isHovered ? 0.08 : 0.05),
