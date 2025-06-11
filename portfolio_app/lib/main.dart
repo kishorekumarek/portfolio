@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio_app/screens/portfolio_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'screens/portfolio_screen.dart';
+import 'theme/theme_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,112 +13,89 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Kishore Kumar - Flutter Portfolio',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        scaffoldBackgroundColor: const Color(0xFF0A0A0B),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          iconTheme: IconThemeData(color: Colors.white),
+    return ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return MaterialApp(
+            title: 'Kishore Kumar - Flutter Portfolio',
+            debugShowCheckedModeBanner: false,
+            theme: _buildTheme(themeProvider.currentTheme),
+            home: const PortfolioScreen(),
+          );
+        },
+      ),
+    );
+  }
+
+  ThemeData _buildTheme(theme) {
+    return ThemeData(
+      useMaterial3: true,
+      brightness: theme.name == 'Light' ? Brightness.light : Brightness.dark,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: theme.primary,
+        brightness: theme.name == 'Light' ? Brightness.light : Brightness.dark,
+        primary: theme.primary,
+        secondary: theme.secondary,
+        surface: theme.surface,
+        background: theme.background,
+      ),
+      textTheme: GoogleFonts.interTextTheme().copyWith(
+        displayLarge: GoogleFonts.inter(
+          fontSize: 72,
+          fontWeight: FontWeight.bold,
+          color: theme.textPrimary,
         ),
-        cardTheme: CardTheme(
+        displayMedium: GoogleFonts.inter(
+          fontSize: 56,
+          fontWeight: FontWeight.bold,
+          color: theme.textPrimary,
+        ),
+        headlineLarge: GoogleFonts.inter(
+          fontSize: 48,
+          fontWeight: FontWeight.w600,
+          color: theme.textPrimary,
+        ),
+        headlineMedium: GoogleFonts.inter(
+          fontSize: 36,
+          fontWeight: FontWeight.w600,
+          color: theme.textPrimary,
+        ),
+        headlineSmall: GoogleFonts.inter(
+          fontSize: 28,
+          fontWeight: FontWeight.w600,
+          color: theme.textPrimary,
+        ),
+        titleLarge: GoogleFonts.inter(
+          fontSize: 24,
+          fontWeight: FontWeight.w500,
+          color: theme.textPrimary,
+        ),
+        bodyLarge: GoogleFonts.inter(
+          fontSize: 18,
+          color: theme.textSecondary,
+          height: 1.6,
+        ),
+        bodyMedium: GoogleFonts.inter(
+          fontSize: 16,
+          color: theme.textSecondary,
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: theme.primary,
+          foregroundColor: Colors.white,
           elevation: 0,
-          color: Colors.white.withOpacity(0.1),
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-            side: BorderSide(color: Colors.white.withOpacity(0.2), width: 1),
+            borderRadius: BorderRadius.circular(12),
           ),
-        ),
-        textTheme: TextTheme(
-          displayLarge: GoogleFonts.inter(
-            fontSize: 56,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-            height: 1.1,
-          ),
-          displayMedium: GoogleFonts.inter(
-            fontSize: 36,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-            height: 1.2,
-          ),
-          headlineLarge: GoogleFonts.inter(
-            fontSize: 32,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-          ),
-          headlineMedium: GoogleFonts.inter(
-            fontSize: 28,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-          headlineSmall: GoogleFonts.inter(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-          titleLarge: GoogleFonts.inter(
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-          titleMedium: GoogleFonts.inter(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-          ),
-          titleSmall: GoogleFonts.inter(
+          textStyle: GoogleFonts.inter(
             fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: Colors.white70,
-          ),
-          bodyLarge: GoogleFonts.inter(
-            fontSize: 18,
-            color: Colors.white70,
-            height: 1.6,
-          ),
-          bodyMedium: GoogleFonts.inter(
-            fontSize: 16,
-            color: Colors.white70,
-            height: 1.6,
-          ),
-          bodySmall: GoogleFonts.inter(
-            fontSize: 14,
-            color: Colors.white60,
-            height: 1.5,
-          ),
-          labelLarge: GoogleFonts.inter(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-          ),
-        ),
-        colorScheme: const ColorScheme.dark(
-          primary: Color(0xFF6366F1),
-          secondary: Color(0xFF8B5CF6),
-          tertiary: Color(0xFF06B6D4),
-          surface: Color(0xFF0A0A0B),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF6366F1),
-            foregroundColor: Colors.white,
-            elevation: 0,
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            textStyle: GoogleFonts.inter(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
-      home: const PortfolioScreen(),
     );
   }
 }
