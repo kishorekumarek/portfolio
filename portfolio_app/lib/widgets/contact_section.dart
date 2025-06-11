@@ -15,7 +15,7 @@ class ContactSection extends StatelessWidget {
       width: size.width,
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 80 : (isTablet ? 40 : 20),
-        vertical: 80,
+        vertical: 48,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -61,10 +61,13 @@ class _HeroSectionState extends State<HeroSection>
     final isTablet = size.width > 600 && size.width <= 900;
 
     return Container(
-      height: size.height,
+      constraints: BoxConstraints(
+        minHeight: isDesktop ? 600 : 500,
+      ),
       width: size.width,
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 80 : (isTablet ? 40 : 20),
+        vertical: 48,
       ),
       child: FadeTransition(
         opacity: _fadeAnimation,
